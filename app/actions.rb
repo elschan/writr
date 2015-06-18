@@ -20,7 +20,7 @@ end
 
 post '/session' do
   @user = User.find_by(username: params[:username])
-
+  @username =  params[:username]
   if @user && @user.password == params[:password]
     session[:id] = @user.id
     redirect '/notes'
