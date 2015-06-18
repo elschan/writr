@@ -1,0 +1,16 @@
+
+<% if @error_message %>
+  <%= @error_message %>
+<% end %>
+
+<form method="POST" action="/session">
+<label for="inputFirstName" class="sr-only">Username</label>
+<br/>
+<input type="text" name="username">
+<br/>
+<label for="inputFirstName" class="sr-only">Password</label>
+<br/>
+<input type="password" name="password">
+<br/>
+<input type="submit" name="submit" value="Submit">
+</form>
