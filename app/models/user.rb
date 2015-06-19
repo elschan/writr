@@ -1,38 +1,24 @@
 class User < ActiveRecord::Base
   has_many :notes
   has_many :comments
-  has_one :watcher, dependent: :destroy
+
   has_many :user_follows
+  has_many :is_followings, class_name: "UserFollow", foreign_key: :is_following_id
 
   validates :username, presence: true, uniqueness: true
   validates :password, presence: true
 
-  after_create :make_watcher
-
   def follow_user(user_id_to_follow)
-    watcher.follow_user(user_id_to_follow)
+    new_follow = is_followings.new(user_id: user_id_to_follow)
+    new_follow.delete unless new_follow.save
   end
 
-  def followed_by
-    ids = []
-    user_follows.each do |user_follow|
-      ids << user_follow.watcher.user_id
-    end
-    User.find(ids)
+  def is_followed_by
+    User.find(user_follows.pluck(:is_following_id))
   end
 
-  def following
-    ids = []
-    watcher.user_follows.each do |user_follow|
-      ids << user_follow.user_id
-    end
-    User.find(ids)
-  end
-
-  private
-
-  def make_watcher
-    Watcher.create(user_id: id)
+  def is_following
+    User.find(is_followings.pluck(:user_id))
   end
   
 end
