@@ -1,0 +1,10 @@
+<% if @error_message %>
+  <%= @error_message %>
+<% end %>
+<form method="POST" action="/notes">
+<label>New Note</label>
+<br/>
+<textarea type="text" name="text" style="width:300px; height:100px;"></textarea>
+<br/>
+<input type="submit" name="submit" value="Submit">
+</form>
