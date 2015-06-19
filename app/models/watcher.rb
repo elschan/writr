@@ -2,7 +2,7 @@ class Watcher < ActiveRecord::Base
   belongs_to :user
   has_many :user_follows, dependent: :destroy
 
-  validates :user_id, presence: true
+  validates :user_id, presence: true, uniqueness: true
 
   def user_ids_currently_following
     ids = []
