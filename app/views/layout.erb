@@ -17,7 +17,27 @@
 
   <title></title>
 </head>
+<style type="text/css">
+  header a{
+    color:white;
+  }
+</style>
 <body>
+  <header style="background:#333;">
+      <a href="/">Logo</a>
+    <% if current_user %>
+      <a href="/users/<%= current_user.id %>">PROFILE</a>
+      <a href="/notes/new">POST</a>
+      <form method="POST" action="/session">
+                <input type="hidden" name="_method" value="delete">
+                <input type="submit" value="Logout">
+              </form>
+    <% else %>
+      <a href="/session/new">Sign in</a>
+    <% end %>
+  </header>
+
+
   <%= yield %>
 </body>
 </html>
