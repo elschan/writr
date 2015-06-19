@@ -15,7 +15,7 @@ class AddUsersNotesComments < ActiveRecord::Migration
     end
 
     create_table :comments do |t|
-      t.integer :user_id
+      t.integer :user_id, null: false
       t.integer :note_id, null: false
       t.string :text, null: false
       t.string :vote_kind

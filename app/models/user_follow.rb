@@ -1,22 +1,21 @@
 class UserFollow < ActiveRecord::Base
-  belongs_to :watcher
   belongs_to :user
+  belongs_to :is_following, class_name: "User"
 
-  validates :watcher_id, presence: true
   validates :user_id, presence: true
+  validates :is_following_id, presence: true
 
   validate :not_following_self
   validate :follow_relation_does_not_already_exist
-  # validate that the watcher is not already following the user
 
   private
 
   def not_following_self
-    errors.add(:user_id, "user cannot follow self") if user_id == watcher.user_id
+    errors.add(:user_id, "user cannot follow self") if user_id == is_following_id
   end
 
   def follow_relation_does_not_already_exist
-    if watcher.user_ids_currently_following.include?(user_id)
+    if UserFollow.where(user_id: user.id).pluck(:is_following_id).include?(:is_following_id)
       errors.add(:user_id, "follow relation already exists")
     end
   end

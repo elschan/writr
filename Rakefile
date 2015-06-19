@@ -35,6 +35,11 @@ task "db:populate" do
   voldys_note.comments.create(user_id: bob.id, text: "Hi voldemort! Nice to meet you. Mwaaaah.", vote_kind: 'like')
   voldys_note.comments.create(user_id: voldemort.id, text: "Hi bob. I just like doing that.")
   voldys_note.comments.create(user_id: john.id, text: "You guys are weird. Especially you, voldy.", vote_kind: 'wtf')
+  # User Follows
+  john.follow_user(voldemort.id)
+  bob.follow_user(voldemort.id)
+  bob.follow_user(john.id)
+  voldemort.follow_user(bob.id)
 end
 
 
