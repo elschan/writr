@@ -17,11 +17,17 @@
 
   <title></title>
 </head>
+<style type="text/css">
+  header a{
+    color:white;
+  }
+</style>
 <body>
   <header style="background:#333;">
+      <a href="/">Logo</a>
     <% if current_user %>
       <a href="/users/<%= current_user.id %>">PROFILE</a>
-      POST
+      <a href="/notes/new">POST</a>
     <% else %>
       <a href="/session/new">Sign in</a>
     <% end %>

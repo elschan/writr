@@ -1,20 +1,23 @@
 helpers do
+
   def current_user
     if session[:id] && session[:id] != "" 
       User.find(session[:id])
     end
   end
+
+  def authorized?
+    if !session[:id]
+      redirect '/'
+    end
+  end
 end
 
-
-# Homepage (Root path)
 get '/' do
   redirect '/notes'
 end
 
-## Login ##
 get '/session/new' do
-  #some code here
   erb :'/user_session/new'
 end 
 
@@ -45,7 +48,7 @@ end
 
 ## Users ##
 get '/users/:id' do
-  @username = User.where(id: params[:id])[0]
+  @user = User.where(id: params[:id])[0]
   erb :'users/profile'
 end
 
@@ -55,26 +58,36 @@ get '/notes' do
   erb :'notes/index'
 end
 
-get '/notes/:id' do
-  erb :'notes/note'
-end
-
 get '/notes/new' do
-
+  erb :'notes/new'
 end
 
 post '/notes' do
-
+  @note = Note.create(user_id: current_user.id, text: params[:text]);
+  if params[:text] == ""
+    @error_message = "Please write something!"
+    erb :'notes/new'
+  else current_user.id && @note && params[:text]
+    redirect "/users/#{current_user.id}"
+  end
 end
 
-get 'notes/:id/comments/new' do
-
+get '/notes/:id' do
+  @note = Note.where(id: params[:id])[0]
+  erb :'notes/note'
 end
 
-post 'notes/:id/comments' do
-
+post '/notes/:id/comments' do
+  new_comment = Comment.new(user_id: current_user.id, note_id: params[:id], text: params[:text], vote_kind: params[:vote_kind])
+  if new_comment.save
+    redirect "/notes/#{params[:id]}"
+  else
+    #must return object
+    @note = Note.where(id: params[:id])[0]
+    @errors = new_comment.errors
+    erb :'notes/note'
+  end
 end
-
 
 ## Search ##
 get '/search' do
