@@ -28,6 +28,10 @@
     <% if current_user %>
       <a href="/users/<%= current_user.id %>">PROFILE</a>
       <a href="/notes/new">POST</a>
+      <form method="POST" action="/session">
+                <input type="hidden" name="_method" value="delete">
+                <input type="submit" value="Logout">
+              </form>
     <% else %>
       <a href="/session/new">Sign in</a>
     <% end %>

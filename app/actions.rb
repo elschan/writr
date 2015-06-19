@@ -5,11 +5,12 @@ helpers do
       User.find(session[:id])
     end
   end
+  
+end
 
-  def authorized?
-    if !session[:id]
-      redirect '/'
-    end
+before do
+  if request.path == '/notes/new' && !current_user
+  redirect '/' 
   end
 end
 
@@ -43,7 +44,8 @@ post '/session' do
 end
 
 delete '/session' do
-  #some code here
+  session[:id] = ""
+  redirect '/'
 end
 
 ## Users ##

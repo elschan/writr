@@ -29,6 +29,7 @@ By: <a href="/users/<%= User.find(@note.user_id).id %>"><%= User.find(@note.user
    <% end %>
   <% end %>
 
+<% if current_user %>
 
 <form method="POST" action="/notes/<%= @note.id %>/comments">
 <label>Comment</label>
@@ -43,3 +44,5 @@ By: <a href="/users/<%= User.find(@note.user_id).id %>"><%= User.find(@note.user
   <br/>
 <input type="submit" name="submit" value="Submit">
 </form>
+
+<% if end %>
