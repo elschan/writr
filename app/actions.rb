@@ -9,7 +9,7 @@ end
 
 # Homepage (Root path)
 get '/' do
-  erb :index
+  redirect '/notes'
 end
 
 ## Login ##
@@ -45,7 +45,8 @@ end
 
 ## Users ##
 get '/users/:id' do
-
+  @username = User.where(id: params[:id])[0]
+  erb :'users/profile'
 end
 
 
@@ -55,7 +56,7 @@ get '/notes' do
 end
 
 get '/notes/:id' do
-
+  erb :'notes/note'
 end
 
 get '/notes/new' do

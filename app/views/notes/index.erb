@@ -1,2 +1,10 @@
-<%= current_user.username %>
-HELLO WORLD
+<% Note.order(created_at: :desc).each do |note| %>
+
+<%= note.text %>
+<br/>
+By: <a href="/users/<%= User.find(note.user_id).id %>"><%= User.find(note.user_id).username %></a>
+<br/>
+<br/>
+<br/>
+
+<% end %>

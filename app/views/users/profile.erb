@@ -1,0 +1,21 @@
+<%= @username.username %>
+<br/>
+"Tag Line Should Be Here!"
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+
+
+
+<% notes = Note.where(user_id: @username.id).order(created_at: :desc) %>
+<% notes.each do |note| %>
+  <%= note.text %>
+  <br/>
+  By: <a href="/users/<%= User.find(note.user_id).id %>"><%= User.find(note.user_id).username %></a>
+  <br/>
+  <br/>
+  <br/>
+<% end %>

@@ -18,6 +18,16 @@
   <title></title>
 </head>
 <body>
+  <header style="background:#333;">
+    <% if current_user %>
+      <a href="/users/<%= current_user.id %>">PROFILE</a>
+      POST
+    <% else %>
+      <a href="/session/new">Sign in</a>
+    <% end %>
+  </header>
+
+
   <%= yield %>
 </body>
 </html>
