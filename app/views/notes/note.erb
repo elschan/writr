@@ -8,42 +8,35 @@ By: <a href="/users/<%= User.find(@note.user_id).id %>"><%= User.find(@note.user
 <br/>
 <br/>
 <% @note.comments.order(created_at: :desc).each do |comment| %> 
-<!-- need to move this to actions -->
-
-    <%= comment.text %>
-    <br/>
+  <%= comment.text %>
+  <br/>
     <span style="color:red;">
-    <% if comment.vote_kind == nil %>
-    DEFAULT BABY!
-    <% else %>
     <%= comment.vote_kind %>
-    <% end %>
     </span>
-    <br/>
+  <br/>
     <a href="/users/<%= User.find(comment.user_id).id %>"><%= User.find(comment.user_id).username %></a>
-    <br/>
-    <br/>
+  <br/>
+  <br/>
 <% end %>
 
- <% if @errors %>
-   <% @errors.messages.each do |k,v| %>
-    <%= k %>: <%= v[0] %>
-   <% end %>
-  <% end %>
+<%if @errors %>
+ <% @errors.messages.each do |k,v| %>
+  <%= k %>: <%= v[0] %>
+ <% end %>
+<% end %>
 
 <% if current_user %>
-
-<form method="POST" action="/notes/<%= @note.id %>/comments">
-<label>Comment</label>
-<br/>
-<textarea type="text" name="text" style="width:300px; height:100px;"></textarea>
-<br/>
-  <input type="radio" name="vote_kind" value="optionA" /> A
-  <input type="radio" name="vote_kind" value="optionB" /> B
-  <input type="radio" name="vote_kind" value="optionC" /> C
-  <input type="radio" name="vote_kind" value="optionD" /> D
-  <input type="radio" name="vote_kind" value="optionE" /> E
-  <br/>
-<input type="submit" name="submit" value="Submit">
-</form>
+  <form method="POST" action="/notes/<%= @note.id %>/comments">
+    <label>Comment</label>
+    <br/>
+    <textarea type="text" name="text" style="width:300px; height:100px;"></textarea>
+    <br/>
+      <input type="radio" name="vote_kind" value="optionA" /> A
+      <input type="radio" name="vote_kind" value="optionB" /> B
+      <input type="radio" name="vote_kind" value="optionC" /> C
+      <input type="radio" name="vote_kind" value="optionD" /> D
+      <input type="radio" name="vote_kind" value="optionE" /> E
+      <br/>
+    <input type="submit" name="submit" value="Submit">
+  </form>
 <%end%>

@@ -3,13 +3,13 @@
   <%= @error_message %>
 <% end %>
 <form method="POST" action="/session">
-<label>Username</label>
-<br/>
-<input type="text" name="username" value="<%= @user.username if @user %>">
-<br/>
-<label>Password</label>
-<br/>
-<input type="password" name="password">
-<br/>
-<input type="submit" name="submit" value="Submit">
+  <label>Username</label>
+  <br/>
+  <input type="text" name="username" value="<%= @user.username if @user %>">
+  <br/>
+  <label>Password</label>
+  <br/>
+  <input type="password" name="password">
+  <br/>
+  <input type="submit" name="submit" value="Submit">
 </form>

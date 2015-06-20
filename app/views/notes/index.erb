@@ -3,7 +3,6 @@
 <a href="/notes/<%= note.id %>"><%= note.text %></a>
 <br/>
 By: <a href="/users/<%= User.find(note.user_id).id %>"><%= User.find(note.user_id).username %></a>
-<!-- can refactor this to someting shorter -->
 
 <br/>
 <br/>
