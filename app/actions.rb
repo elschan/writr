@@ -99,17 +99,18 @@ end
 ## Search ##
  get '/search'  do
   if params[:query]
-    # query_array = params[:query].split(" ")
+    query_array = params[:query].split(" ")
     @results_notes = Note.where("text LIKE '%#{params[:query]}%'")
     @results_users = User.where("username LIKE '%#{params[:query]}%'")
   end
   erb :'search/index'
 end
 
-get '/search/results' do
-@results_notes = Note.where("text LIKE '%#{params[:query]}%'")
-@results_users = User.where("username LIKE '%#{params[:query]}%'")
-erb :'search/index'
-end
+# get '/search/results' do
+
+# @results_notes = Note.where("text LIKE '%#{params[:query]}%'")
+# @results_users = User.where("username LIKE '%#{params[:query]}%'")
+# erb :'search/index'
+# end
 
 
