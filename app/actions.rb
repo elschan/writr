@@ -51,6 +51,7 @@ end
 ## Users ##
 get '/users/:id' do
   @user = User.where(id: params[:id]).first
+  @notes = @user.notes.order(created_at: :desc)
   erb :'users/profile'
 end
 
@@ -98,13 +99,11 @@ end
 
 ## Search ##
  get '/search'  do
-  erb :'search/index'
+
 end
 
 get '/search/results' do
-@results_notes = Note.where("text LIKE '%#{params[:query]}%'")
-@results_users = User.where("username LIKE '%#{params[:query]}%'")
-erb :'search/index'
+
 end
 
 
