@@ -8,11 +8,11 @@ helpers do
   
 end
 
-before do
-  if request.path == '/notes/new' && !current_user
-  redirect '/' 
-  end
-end
+# before do
+#   if request.path == '/notes/new' && !current_user
+#   redirect '/' 
+#   end
+# end
 
 get '/' do
   redirect '/notes'
@@ -34,13 +34,13 @@ post '/session' do
       @error_message = "Please fill in your username and password."
     elsif params[:username].empty?
       @error_message = "Please fill in your username."
-    elsif !@user 
+    elsif !@user
       @error_message = "Username does not exist."
     elsif @user && @user.password != params[:password]
       @error_message = "Your password is wrong"
     end
+    erb :'/user_session/new'
   end
-  erb :'/user_session/new'
 end
 
 delete '/session' do
@@ -50,7 +50,7 @@ end
 
 ## Users ##
 get '/users/:id' do
-  @user = User.where(id: params[:id]).first
+  @user = User.find(params[:id])
   @notes = @user.notes.order(created_at: :desc)
   erb :'users/profile'
 end
@@ -67,11 +67,11 @@ get '/notes/new' do
 end
 
 post '/notes' do
-  @note = Note.create(user_id: current_user.id, text: params[:text]);
   if params[:text].empty?
     @error_message = "Please write something!"
     erb :'notes/new'
   else
+    @note = Note.create(user_id: current_user.id, text: params[:text])
     redirect "/notes/#{@note.id}"
   end
 end
@@ -87,7 +87,7 @@ post '/notes/:id/comments' do
     redirect "/notes/#{params[:id]}"
   else
     #must return object
-    @note = Note.where(id: params[:id])[0]
+    @note = Note.find(params[:id])
     @errors = new_comment.errors
     erb :'notes/note'
   end

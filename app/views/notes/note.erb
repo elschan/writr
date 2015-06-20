@@ -6,16 +6,13 @@
       <div class="col-md-8">
         <p><%= @note.text %></p>
         <div class="by-user">
-          <span>By:</span> <a href="/users/<%= @note.author %>"><%= @note.author %></a>
+          <span>By:</span> <a href="/users/<%= @note.id %>"><%= @note.author %></a>
         </div>
         <div class="col-md-1 mobile-hide"></div>
       </div>
     </div>
   </div>
 <!-- #/End of Note -->
-
-
-
 
 <% unless @note.comments.empty? %>
   <div align="center">
@@ -38,7 +35,7 @@
           <div class="col-md-8">
             <p><%= comment.text %></p>
             <div class="by-user">
-              <span>By:</span> <a href="/users/<%= comment.author %>"><%= comment.author %></a>
+              <span>By:</span> <a href="/users/<%= comment.id %>"><%= comment.author %></a>
             </div>
             <div class="col-md-1 mobile-hide"></div>
           </div>
@@ -50,7 +47,11 @@
 
 <%if @errors %>
  <% @errors.messages.each do |k,v| %>
-  <%= k %>: <%= v[0] %>
+
+ <div class="alert alert-danger fade in">
+    <a href="#" class="close" data-dismiss="alert">&times;</a>
+    <strong>Error!</strong> <%= k %>: <%= v[0] %>
+</div>
  <% end %>
 <% end %>
 

@@ -10,7 +10,7 @@
 <% @notes.each do |note| %>
   <a href="/notes/<%= note.id %>"><%= note.text %></a>
   <br/>
-  By: <a href="/users/<%= User.find(note.user_id).id %>"><%= User.find(note.user_id).username %></a>
+  By: <a href="/users/<%= note.user_id %>"><%= note.author %></a>
   <br/>
   <br/>
   <br/>
