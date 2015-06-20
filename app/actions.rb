@@ -24,7 +24,7 @@ end
 
 post '/session' do
   @user = User.find_by(username: params[:username])
-  @username =  params[:username]
+  @username = params[:username]
   if @user && @user.password == params[:password]
     session[:id] = @user.id
     redirect '/notes'
@@ -50,7 +50,8 @@ end
 
 ## Users ##
 get '/users/:id' do
-  @user = User.where(id: params[:id])[0]
+  @user = User.where(id: params[:id]).first
+  @notes = @user.notes.order(created_at: :desc)
   erb :'users/profile'
 end
 
@@ -75,7 +76,12 @@ post '/notes' do
 end
 
 get '/notes/:id' do
-  @note = Note.where(id: params[:id])[0]
+  @note = Note.where(id: params[:id]).first
+  @note.comments.order(created_at: :desc).each do |comment|
+    if comment.vote_kind == nil 
+      comment.vote_kind = "DEFAULT BABY!"
+    end
+  end
   erb :'notes/note'
 end
 
@@ -92,6 +98,12 @@ post '/notes/:id/comments' do
 end
 
 ## Search ##
-get '/search' do
+ get '/search'  do
 
 end
+
+get '/search/results' do
+
+end
+
+

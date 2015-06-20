@@ -6,9 +6,8 @@
 <br/>
 <br/>
 <br/>
-<% notes = Note.where(user_id: @user.id).order(created_at: :desc) %>
 
-<% notes.each do |note| %>
+<% @notes.each do |note| %>
   <a href="/notes/<%= note.id %>"><%= note.text %></a>
   <br/>
   By: <a href="/users/<%= User.find(note.user_id).id %>"><%= User.find(note.user_id).username %></a>
