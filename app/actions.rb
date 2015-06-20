@@ -98,19 +98,22 @@ post '/notes/:id/comments' do
 end
 ## Search ##
  get '/search'  do
+  @results_notes = []
+  @results_users = []
+
   if params[:query]
     query_array = params[:query].split(" ")
-    @results_notes = Note.where("text LIKE '%#{params[:query]}%'")
-    @results_users = User.where("username LIKE '%#{params[:query]}%'")
+    query_array.each do |word|
+
+      Note.where("text LIKE '%#{word}%'").each do |result|
+          @results_notes << result
+        end
+      User.where("username LIKE '%#{word}%'").each do |result|
+          @results_users << result
+        end
+    end
   end
   erb :'search/index'
 end
-
-# get '/search/results' do
-
-# @results_notes = Note.where("text LIKE '%#{params[:query]}%'")
-# @results_users = User.where("username LIKE '%#{params[:query]}%'")
-# erb :'search/index'
-# end
 
 
