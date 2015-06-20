@@ -7,7 +7,9 @@ By: <a href="/users/<%= User.find(@note.user_id).id %>"><%= User.find(@note.user
 <br/>
 <br/>
 <br/>
-<% Comment.all.where(note_id: @note.id).order(created_at: :desc).each do |comment| %>
+<% @note.comments.order(created_at: :desc).each do |comment| %> 
+<!-- need to move this to actions -->
+
     <%= comment.text %>
     <br/>
     <span style="color:red;">
@@ -44,5 +46,4 @@ By: <a href="/users/<%= User.find(@note.user_id).id %>"><%= User.find(@note.user
   <br/>
 <input type="submit" name="submit" value="Submit">
 </form>
-
-<% if end %>
+<%end%>
