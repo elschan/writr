@@ -20,8 +20,17 @@ class Note < ActiveRecord::Base
         end
       end
     end
-    return nil if votes_hash.empty?
     votes_hash
+  end
+
+  def top_vote_type
+    result = :neutral
+    vote_types = get_votes
+    vote_types[:neutral] = 0
+    vote_types.each do |vote_type_key, vote_type_value|
+      result = vote_type_key if vote_type_value > vote_types[result]
+    end
+    result.to_s
   end
   
 end

@@ -189,7 +189,7 @@ section.main > div > div > div.col-md-10 > div:nth-child(1) {
     border: none;
     width: 50px;
     height: 50px;
-    background: url(images/like.png) left center no-repeat;    
+    background: url(/images/like.png) left center no-repeat;    
     background-size: 50px;
     opacity: .15;
     filter: alpha(opacity=50); /* For IE8 and earlier */
@@ -201,7 +201,7 @@ section.main > div > div > div.col-md-10 > div:nth-child(1) {
     border: none;
     width: 50px;
     height: 50px;
-    background: url(images/bad.png) left center no-repeat;    
+    background: url(/images/dislike.png) left center no-repeat;    
     background-size: 50px;
     opacity: .15;
     filter: alpha(opacity=50); /* For IE8 and earlier */
@@ -213,7 +213,7 @@ section.main > div > div > div.col-md-10 > div:nth-child(1) {
     border: none;
     width: 50px;
     height: 50px;
-    background: url(images/omg.png) left center no-repeat;    
+    background: url(/images/omg.png) left center no-repeat;    
     background-size: 50px;
     opacity: .15;
     filter: alpha(opacity=50); /* For IE8 and earlier */
@@ -225,7 +225,7 @@ section.main > div > div > div.col-md-10 > div:nth-child(1) {
     border: none;
     width: 50px;
     height: 50px;
-    background: url(images/wtf.png) left center no-repeat;    
+    background: url(/images/wtf.png) left center no-repeat;    
     background-size: 50px;
     opacity: .15;
     filter: alpha(opacity=50); /* For IE8 and earlier */
@@ -268,7 +268,7 @@ section.main > div > div > div.col-md-10 > div:nth-child(3) {
     border: none;
     width: 30px;
     height: 30px;
-    background: url(images/search.png) left center no-repeat;    
+    background: url(/images/search.png) left center no-repeat;    
     background-size: 30px;
 }
 

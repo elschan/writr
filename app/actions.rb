@@ -58,6 +58,7 @@ end
 
 ## Notes ##
 get '/notes' do
+  @notes = Note.all.order(created_at: :desc)
   erb :'notes/index'
 end
 
@@ -67,21 +68,16 @@ end
 
 post '/notes' do
   @note = Note.create(user_id: current_user.id, text: params[:text]);
-  if params[:text] == ""
+  if params[:text].empty?
     @error_message = "Please write something!"
     erb :'notes/new'
-  else current_user.id && @note && params[:text]
-    redirect "/users/#{current_user.id}"
+  else
+    redirect "/notes/#{@note.id}"
   end
 end
 
 get '/notes/:id' do
-  @note = Note.where(id: params[:id]).first
-  @note.comments.order(created_at: :desc).each do |comment|
-    if comment.vote_kind == nil 
-      comment.vote_kind = "DEFAULT BABY!"
-    end
-  end
+  @note = Note.find(params[:id])
   erb :'notes/note'
 end
 

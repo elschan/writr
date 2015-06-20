@@ -1,22 +1,51 @@
-<%= @note.text %>
-<br/>
-By: <a href="/users/<%= User.find(@note.user_id).id %>"><%= User.find(@note.user_id).username %></a>
+<!-- Note -->
+  <div class="note">
+    <div class="row">
+      <div class="col-md-1 mobile-hide"></div>
+      <div class="col-md-2 emoticons"><img src="/images/<%= @note.top_vote_type %>.png"/></div>
+      <div class="col-md-8">
+        <p><%= @note.text %></p>
+        <div class="by-user">
+          <span>By:</span> <a href="/users/<%= @note.author %>"><%= @note.author %></a>
+        </div>
+        <div class="col-md-1 mobile-hide"></div>
+      </div>
+    </div>
+  </div>
+<!-- #/End of Note -->
 
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<% @note.comments.order(created_at: :desc).each do |comment| %> 
-  <%= comment.text %>
-  <br/>
-    <span style="color:red;">
-    <%= comment.vote_kind %>
-    </span>
-  <br/>
-    <a href="/users/<%= User.find(comment.user_id).id %>"><%= User.find(comment.user_id).username %></a>
-  <br/>
-  <br/>
+
+
+
+<% unless @note.comments.empty? %>
+  <div align="center">
+    <h2>Things People Say</h2>
+    <div class="spacer-40"></div>
+  </div>
+
+  <% @note.comments.order(created_at: :desc).each do |comment| %> 
+    <!-- Comment -->
+      <div class="comment">
+        <div class="row">
+          <div class="col-md-1 mobile-hide"></div>
+          <div class="col-md-2 emoticons">
+            <% if comment.vote_kind %>
+              <img src="/images/<%= comment.vote_kind %>.png"/>
+            <% else %>
+              <img src="/images/neutral.png"/>
+            <% end %>
+          </div>
+          <div class="col-md-8">
+            <p><%= comment.text %></p>
+            <div class="by-user">
+              <span>By:</span> <a href="/users/<%= comment.author %>"><%= comment.author %></a>
+            </div>
+            <div class="col-md-1 mobile-hide"></div>
+          </div>
+        </div>
+      </div>
+    <!-- #/End of Comment -->
+  <% end %>
 <% end %>
 
 <%if @errors %>
@@ -26,17 +55,31 @@ By: <a href="/users/<%= User.find(@note.user_id).id %>"><%= User.find(@note.user
 <% end %>
 
 <% if current_user %>
-  <form method="POST" action="/notes/<%= @note.id %>/comments">
-    <label>Comment</label>
-    <br/>
-    <textarea type="text" name="text" style="width:300px; height:100px;"></textarea>
-    <br/>
-      <input type="radio" name="vote_kind" value="optionA" /> A
-      <input type="radio" name="vote_kind" value="optionB" /> B
-      <input type="radio" name="vote_kind" value="optionC" /> C
-      <input type="radio" name="vote_kind" value="optionD" /> D
-      <input type="radio" name="vote_kind" value="optionE" /> E
-      <br/>
-    <input type="submit" name="submit" value="Submit">
-  </form>
+  <!-- Comment Form -->
+    <div class="comment-form">
+      <div class="row">
+        <div class="col-md-1 mobile-hide"></div>
+        <div class="col-md-10">
+        <p>Insert Your Comment Below!</p>
+        <form method="POST" action="/notes/<%= @note.id %>/comments">
+          <div>
+            <textarea name="text" style="width: 100%; margin: 0; padding: 0; border-width: 0;" rows="12"></textarea>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <input type="radio" class="like" name="vote_kind" value="like" />
+              <input type="radio" class="dislike" name="vote_kind" value="dislike" />
+              <input type="radio" class="omg"  name="vote_kind" value="omg" />
+              <input type="radio" class="wtf"  name="vote_kind" value="wtf" />
+              </div>
+            <div class="col-md-6" align="right">
+              <input class="submit-comment" type="submit" name="submit" value="Submit">
+            </div>
+          </div>
+        </form>
+        </div>
+      </div>
+    </div>
+  <!-- #/End of Comment Form -->
 <%end%>

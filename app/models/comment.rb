@@ -7,6 +7,10 @@ class Comment < ActiveRecord::Base
 
   validate :cannot_set_comment_type_on_own_note
 
+  def author
+    user.username
+  end
+
   private
 
   def cannot_set_comment_type_on_own_note
