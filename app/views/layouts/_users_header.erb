@@ -21,10 +21,10 @@
           </td>
         </tr>
         <tr>
-          <td colspan="2">
-            <h3 class="followers"><a href="/users/<%= @user.id %>/follows">View Follows
+          <td colspan="3">
+            <h3 class="followers"><a class="follow-btn" href="/users/<%= @user.id %>/follows">View Follows</a>
               <% if current_user && (current_user.id == @user.id) && @user.has_new_followers? %>
-                &nbsp;<strong>(New Followers!)</strong></a>
+                <p class="margin-top-30"><strong>(New Followers!)</strong></p>
               <% end %>
             </h3>
           </td>
@@ -36,12 +36,12 @@
           <% unless current_user.is_following_ids.include?(@user.id) %>
             <form method="POST" action="/users/newfollow">
               <input type="hidden" name="user_id_to_follow" value="<%= @user.id %>">
-              <input class="follow-btn" type="submit" value="Follow this person">
+              <input class="follow-btn" type="submit" value="Follow This Person">
             </form>
           <% else %>
             <form method="POST" action="/users/unfollow">
               <input type="hidden" name="user_id_to_unfollow" value="<%= @user.id %>">
-              <input class="stop-follow-btn" type="submit" value="Stop following this person">
+              <input class="stop-follow-btn" type="submit" value="Stop Following This Person">
             </form>
           <% end %>
         <% end %>

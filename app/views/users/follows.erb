@@ -11,7 +11,7 @@
           <p>
             <a href="/users/<%= user.id %>"><%= user.username %></a>
             <% if @is_followed_by_new_ids.include?(user.id) %>
-              <span>&nbsp;&nbsp;&nbsp;&nbsp;<strong>NEW!</strong></span>
+              <span><strong class="new-follow">(New!)</strong></span>
             <% end %>
           <p>
         </li>
