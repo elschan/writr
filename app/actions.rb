@@ -62,6 +62,12 @@ end
 
 get '/users/:id/follows' do
   @user = User.find(params[:id])
+  new_user_follows = @user.user_follows.where(notification_flag: false)
+  @is_followed_by_new_ids = new_user_follows.pluck(:is_following_id)
+  new_user_follows.each do |follow|
+    follow.notification_flag = true
+    follow.save
+  end
   erb :'users/follows'
 end
 

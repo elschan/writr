@@ -10,6 +10,9 @@
         <li>
           <p>
             <a href="/users/<%= user.id %>"><%= user.username %></a>
+            <% if @is_followed_by_new_ids.include?(user.id) %>
+              <span>&nbsp;&nbsp;&nbsp;&nbsp;<strong>NEW!</strong></span>
+            <% end %>
           <p>
         </li>
       <% end %>
