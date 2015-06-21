@@ -1,55 +1,38 @@
-
-
-    <section class="tag-line-container">
-      <div class="container">
-        <div class="spacer-100"></div>
-        <div class="text-align-center" class="col-md-12">
-                  <h1 align="center" style="padding-bottom:20px;">If you can't describe it in words, leave.</h1>
-
-         <form>
-          <div class="row">
-          <div class="col-md-2"></div>
-          <div class="col-md-10">
-            <div class="row">
-              <div class="col-xs-9"><input type="text" style="height: 30px; width: 100%; margin: 0; padding: 0; border-width: 0;" />
-              <div align="left" style="margin-top:10px; color:white;">
-              <input class="search-bar" style="margin-right:10px;" type="radio" name="vote_kind" value="search" /> Search for Username
-              </div>
-              </div>
-              <div class="col-xs-3 text-align-left"><input class="search" align="right" type="submit" value=""></div>
-            </div>
-
-          </div>
-          <div class="col-md-2"></div>
-          </div>
-          </form>
-        </div>
-        <div class="spacer-100"></div>
-      </div>
-    </section>
-
-<form method="get" action="search">
-  <input type="text" name="query"/><br /> 
-  <input type="checkbox" name="users_only" value="1"/><br /> 
-  <label for="search_users"> Username only </label>
-  <input type="submit"/>
-</form>
-
-<br><br><br>
-
 <%if @results_users%>
   <%@results_users.each do |result| %>
-
-    <%=result.username %>
-  <br><br><br> 
+    <div class="note">
+      <div class="row">
+        <div class="col-md-1 mobile-hide"></div>
+        <div class="col-md-10">
+          <p><a class="username" href="/users/<%=result.id %>"><%=result.username %></a></p>
+          <div class="col-md-1 mobile-hide"></div>
+        </div>
+      </div>
+    </div>
   <%end %>
 <%end%>
 
 <% unless params[:users_only] == '1' %>
   <%if @results_notes%>
-    <%@results_notes.each do |result| %>
-    <%=result.text %> <br>
-    <%=User.find(result.user_id).username %> <br><br><br> 
+    <%@results_notes.each do |note| %>
+      <div class="note">
+        <div class="row">
+          <div class="col-md-1 mobile-hide"></div>
+          <div class="col-md-2 emoticons">
+            <img src="images/<%= note.top_vote_type %>.png"/>
+          </div>
+          <div class="col-md-8">
+            <p><%= note.text %></p>
+            <div class="by-user">
+              <span>By:</span> <a href="/users/<%= note.user_id %>"><%= note.author %></a>
+            </div>
+            <div class="write-about-this">
+              <a href="/notes/<%= note.id %>">Write About This</a>
+            </div>
+            <div class="col-md-1 mobile-hide"></div>
+          </div>
+        </div>
+      </div>
     <% end %>
   <%end%>
 <%end%>

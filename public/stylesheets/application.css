@@ -291,6 +291,13 @@ footer span{
 }
 
 /** MISC **/
+a.username{
+  color:#000 !important;
+  text-decoration: underline;
+}
+a.username:hover{
+  text-decoration: none;
+}
 .alert-danger{
   font-size:15px;
 }
