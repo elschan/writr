@@ -242,7 +242,7 @@ section.main > div > div > div.col-md-10 > div:nth-child(3) {
   margin-top:0px !important;
 }
 
-.submit-comment, .submit-login, .submit, .follow-this-person a{
+.submit-comment, .submit-login, .submit, .follow-this-person a, .stop-follow-btn, .follow-btn{
   background: #ff8400;
   color:white;
   margin-top:20px;
@@ -258,7 +258,7 @@ section.main > div > div > div.col-md-10 > div:nth-child(3) {
   transition: border .25s linear,color .25s linear,background-color .25s linear;
   text-decoration: none;
 }
-.submit-comment:hover, .submit-login:hover, .follow-this-person a:hover{
+.submit-comment:hover, .submit-login:hover, .follow-this-person a:hover, .stop-follow-btn:hover, .follow-btn:hover{
   background:white;
   color:#000;
 }
@@ -291,6 +291,10 @@ footer span{
 }
 
 /** MISC **/
+.main{
+  min-height: 500px;
+}
+
 a.username{
   color:#000 !important;
   text-decoration: underline;
@@ -387,6 +391,7 @@ textarea{
   padding:20px;
   margin-bottom:10px;
 }
+
 @media (min-width: 992px) {
  .text-align-left-desktop{
   text-align: left;
