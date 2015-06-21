@@ -117,15 +117,14 @@ end
 get '/search'  do
   @results_notes = []
   @results_users = []
-
+  @notes = Note.all
   if params[:query]
     query_array = params[:query].split(" ")
     query_array.each do |word|
-
-      Note.where("text LIKE '%#{word}%'").each do |result|
+      Note.where("text LIKE ?", "%#{word.gsub("'", "''")}%").each do |result|
           @results_notes << result
         end
-      User.where("username LIKE '%#{word}%'").each do |result|
+      User.where("username LIKE ?", "%#{word.gsub("'", "''")}%").each do |result|
           @results_users << result
         end
     end

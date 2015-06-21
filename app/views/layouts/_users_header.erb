@@ -3,11 +3,11 @@
     <div class="spacer-100"></div>
     <div class="text-align-center" class="col-md-12">
       <h1><%= @user.username %></h1>
-      <h2 class="tag-line">
+      <h2 class="tag-line" contenteditable= "true">
       <% if @user.tagline %>
         <%= @user.tagline %>
       <% else %>
-        "Insert tagline here"
+        <p>"Insert tagline here"</p>
       <% end %>
       </h2>
       <table align="center">
