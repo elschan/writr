@@ -5,7 +5,8 @@ helpers do
       User.find(session[:id])
     end
   end
-  
+
+
 end
 
 # before do
@@ -112,14 +113,23 @@ post '/notes/:id/comments' do
     erb :'notes/note'
   end
 end
-
 ## Search ##
-get '/search' do
+get '/search'  do
+  @results_notes = []
+  @results_users = []
+
+  if params[:query]
+    query_array = params[:query].split(" ")
+    query_array.each do |word|
+
+      Note.where("text LIKE '%#{word}%'").each do |result|
+          @results_notes << result
+        end
+      User.where("username LIKE '%#{word}%'").each do |result|
+          @results_users << result
+        end
+    end
+  end
   erb :'search/index'
 end
-
-get '/search/results' do
-
-end
-
 
