@@ -22,7 +22,7 @@ post '/session' do
   @username = params[:username]
   if @user && @user.password == params[:password]
     session[:id] = @user.id
-    redirect '/notes'
+    redirect '/'
   else
     #error messages
     @error_message = ""
@@ -52,7 +52,8 @@ end
 post '/users' do
   user = User.new(username: params[:username], password: params[:password], tagline: params[:tagline])
   if user.save
-    redirect "/notes"
+    session[:id] = user.id
+    redirect "/"
   else
     @errors = user.errors
     erb :'/users/new'
