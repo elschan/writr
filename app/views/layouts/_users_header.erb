@@ -21,18 +21,18 @@
           </td>
         </tr>
       </table>
-      <div class="spacer-40"></div>
       <div class="follow-this-person">
         <% if current_user && (current_user.id != @user.id) %>
+          <div class="spacer-40"></div>
           <% unless current_user.is_following_ids.include?(@user.id) %>
             <form method="POST" action="/users/newfollow">
               <input type="hidden" name="user_id_to_follow" value="<%= @user.id %>">
-              <input type="submit" value="Follow this person">
+              <input class="follow-btn" type="submit" value="Follow this person">
             </form>
           <% else %>
             <form method="POST" action="/users/unfollow">
               <input type="hidden" name="user_id_to_unfollow" value="<%= @user.id %>">
-              <input type="submit" value="Stop following this person">
+              <input class="stop-follow-btn" type="submit" value="Stop following this person">
             </form>
           <% end %>
         <% end %>
