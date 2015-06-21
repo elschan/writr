@@ -54,6 +54,10 @@ task "db:populate" do
   bob.follow_user(voldemort.id)
   john.follow_user(voldemort.id)
   voldemort.follow_user(bob.id)
+  UserFollow.all.each do |follow|
+    follow.notification_flag = true
+    follow.save
+  end
 end
 
 
