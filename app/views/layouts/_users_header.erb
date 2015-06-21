@@ -13,11 +13,20 @@
       <table align="center">
         <tr>
           <td>
-            <h3 class="followers"><a href="/users/<%= @user.id %>/follows" class="followers_tab">Followers: <%= @user.is_followed_by.count %></a></h3>
+            <h3 class="followers">Followers: <%= @user.is_followed_by.count %></h3>
           </td>
           <td width="30">&nbsp;</td>
           <td>
-            <h3 class="following"><a href="/users/<%= @user.id %>/follows" class="following_tab">Following: <%= @user.is_following.count %></a></h3>
+            <h3 class="following">Following: <%= @user.is_following.count %></h3>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <h3 class="followers"><a href="/users/<%= @user.id %>/follows">View Follows
+              <% if current_user && (current_user.id == @user.id) && @user.has_new_followers? %>
+                &nbsp;<strong>(New Followers!)</strong></a>
+              <% end %>
+            </h3>
           </td>
         </tr>
       </table>
