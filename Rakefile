@@ -27,18 +27,32 @@ task "db:populate" do
   john = User.create(username: 'john', password: '123')
   bob = User.create(username: 'bob', password: '456')
   voldemort = User.create(username: 'voldemort', password: 'avadacadavra')
+  gandalf = User.create(username: 'gandalf', password: 'youshallnotpassword')
   # Notes
-  bob.notes.create(text: "I'm bob. Sup.")
-  voldys_note = voldemort.notes.create(text: "I AM VOLDEMORT! MWAAAAH!")
-  voldys_other_note = voldemort.notes.create(text: "Still... VOLDEMORT!")
+  johns_note_1 = john.notes.create(text: "Just read John Locke's 'Leviathan' and I'm not impressed. Why would he go into so much detail regarding pies?")
+  johns_note_2 = john.notes.create(text: "Turns out that my ancestor is actually Renee Descartes himself! Sweet!")
+  bobs_note = bob.notes.create(text: "This is meant to be a clearly racist and hated remark, but I don't want to write one of those.")
+  voldys_note = voldemort.notes.create(text: "I don't know why people hate me for Harry Potter's scar. I think it's pretty fashionable, in all honesty.")
   # Comments
-  voldys_note.comments.create(user_id: bob.id, text: "Hi voldemort! Nice to meet you. Mwaaaah.", vote_kind: 'like')
-  voldys_note.comments.create(user_id: voldemort.id, text: "Hi bob. I just like doing that.")
-  voldys_note.comments.create(user_id: john.id, text: "You guys are weird. Especially you, voldy.", vote_kind: 'wtf')
+  ###
+  johns_note_1.comments.create(user_id: bob.id, text: "Good job on getting through that tome!", vote_kind: 'like')
+  johns_note_1.comments.create(user_id: john.id, text: "Thanks, bob. I appreciate it.")
+  johns_note_1.comments.create(user_id: voldemort.id, text: "I also like pie. Just thought you should know that.")
+  ###
+  johns_note_2.comments.create(user_id: bob.id, text: "That's incredible!", vote_kind: 'omg')
+  johns_note_2.comments.create(user_id: bob.id, text: "That's really, really incredible!", vote_kind: 'omg')
+  johns_note_2.comments.create(user_id: voldemort.id, text: "I don't like this.", vote_kind: 'dislike')
+  johns_note_2.comments.create(user_id: john.id, text: "I don't like you, voldemort.")
+  ###
+  bobs_note.comments.create(user_id: john.id, text: "Seriously?!", vote_kind: 'wtf')
+  bobs_note.comments.create(user_id: john.id, text: "Really, seriously?!", vote_kind: 'wtf')
+  bobs_note.comments.create(user_id: john.id, text: "Why would you SAY something like this?", vote_kind: 'wtf')
+  bobs_note.comments.create(user_id: voldemort.id, text: "I approve!", vote_kind: 'like')
+  bobs_note.comments.create(user_id: voldemort.id, text: "I approve a lot!", vote_kind: 'like')
   # User Follows
-  john.follow_user(voldemort.id)
-  bob.follow_user(voldemort.id)
   bob.follow_user(john.id)
+  bob.follow_user(voldemort.id)
+  john.follow_user(voldemort.id)
   voldemort.follow_user(bob.id)
 end
 
