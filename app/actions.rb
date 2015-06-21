@@ -6,15 +6,9 @@ helpers do
     end
   end
 
-
 end
 
-# before do
-#   if request.path == '/notes/new' && !current_user
-#   redirect '/' 
-#   end
-# end
-
+## Home and Session Login ##
 get '/' do
   redirect '/notes'
 end
@@ -28,9 +22,10 @@ post '/session' do
   @username = params[:username]
   if @user && @user.password == params[:password]
     session[:id] = @user.id
-    redirect '/notes'
+    redirect '/'
   else
     #error messages
+    @error_message = ""
     if params[:username].empty? && params[:password].empty?
       @error_message = "Please fill in your username and password."
     elsif params[:username].empty?
@@ -49,7 +44,6 @@ delete '/session' do
   redirect '/'
 end
 
-
 ## Users ##
 get '/users/new' do
   erb :'/users/new'
@@ -58,7 +52,8 @@ end
 post '/users' do
   user = User.new(username: params[:username], password: params[:password], tagline: params[:tagline])
   if user.save
-    redirect "/notes"
+    session[:id] = user.id
+    redirect "/"
   else
     @errors = user.errors
     erb :'/users/new'
@@ -69,7 +64,6 @@ get '/users/:id/follows' do
   @user = User.find(params[:id])
   erb :'users/follows'
 end
-
 
 get '/users/:id' do
   @user = User.find(params[:id])
@@ -88,10 +82,9 @@ post '/users/unfollow' do
   redirect "/users/#{params[:user_id_to_unfollow]}"
 end
 
-
 ## Notes ##
 get '/notes' do
-  @notes = Note.all.order(created_at: :desc)
+  @notes = Note.order(created_at: :desc)
   erb :'notes/index'
 end
 
@@ -120,7 +113,6 @@ post '/notes/:id/comments' do
   if new_comment.save
     redirect "/notes/#{params[:id]}"
   else
-    #must return object
     @note = Note.find(params[:id])
     @errors = new_comment.errors
     erb :'notes/note'
