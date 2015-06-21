@@ -1,0 +1,29 @@
+<!-- Followers Box -->
+<div class="followers">
+  <div class="row">
+    <div class="col-md-1 mobile-hide"></div>
+    <div class="col-md-10">
+    <h2 class="followers-following-label"><span class="followers-label">Followers</span> / <span class="following-label">Followings</h2>
+    <div class="spacer-30"></div>
+    <ul class="followers-list">
+      <% @user.is_followed_by.each do |user| %>
+        <li>
+          <p>
+            <a href="/users/<%= user.id %>"><%= user.username %></a>
+          <p>
+        </li>
+      <% end %>
+    </ul>
+    <ul class="followings-list">
+      <% @user.is_following.each do |user| %>
+        <li>
+          <p>
+            <a href="/users/<%= user.id %>"><%= user.username %></a>
+          <p>
+        </li>
+      <% end %>
+    </ul>
+    </div>
+  </div>
+</div>
+<!-- #/Followers Box -->

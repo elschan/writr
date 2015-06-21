@@ -48,7 +48,15 @@ delete '/session' do
   redirect '/'
 end
 
+
 ## Users ##
+
+get '/users/:id/follows' do
+  @user = User.find(params[:id])
+  erb :'users/follows'
+end
+
+
 get '/users/:id' do
   @user = User.find(params[:id])
   @notes = @user.notes.order(created_at: :desc)

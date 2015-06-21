@@ -67,13 +67,12 @@
     </header>
 
     <% if request.path_info.match(/^\/users\/\d+$/) %>
-      <!-- user partial -->
       <%= erb :"layouts/_users_header" %>
     <% elsif request.path_info.match(/^\/search$/) %>
-      <!-- search partial -->
       <%= erb :"layouts/_search_header" %>
+    <% elsif request.path_info.match(/^\/users\/\d+\/follows$/) %>
+      <%= erb :"layouts/_users_header" %>
     <% else %>
-      <!-- everything else -->
       <%= erb :"layouts/_default_header" %>
     <% end %>
 
