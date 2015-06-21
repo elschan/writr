@@ -1,0 +1,25 @@
+<form method="get" action="search">
+  <input type="text" name="query"/><br /> 
+  <input type="checkbox" name="users_only" value="1"/><br /> 
+  <label for="search_users"> Username only </label>
+  <input type="submit"/>
+</form>
+
+<br><br><br>
+
+<%if @results_users%>
+  <%@results_users.each do |result| %>
+
+    <%=result.username %>
+  <br><br><br> 
+  <%end %>
+<%end%>
+
+<% unless params[:users_only] == '1' %>
+  <%if @results_notes%>
+    <%@results_notes.each do |result| %>
+    <%=result.text %> <br>
+    <%=User.find(result.user_id).username %> <br><br><br> 
+    <% end %>
+  <%end%>
+<%end%>
