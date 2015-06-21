@@ -128,16 +128,17 @@ post '/notes/:id/comments' do
 end
 ## Search ##
 get '/search'  do
+  @errors_noresults = "No search results found. Please try again."
   @results_notes = []
   @results_users = []
   @notes = Note.all
   if params[:query]
     query_array = params[:query].split(" ")
     query_array.each do |word|
-      Note.where("text LIKE ?", "%#{word.gsub("'", "''")}%").each do |result|
+      Note.where("text LIKE ?", "%#{word}%").each do |result|
           @results_notes << result
-        end
-      User.where("username LIKE ?", "%#{word.gsub("'", "''")}%").each do |result|
+        end   
+      User.where("username LIKE ?", "%#{word}%").each do |result|
           @results_users << result
         end
     end
