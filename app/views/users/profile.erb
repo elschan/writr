@@ -1,17 +1,20 @@
-<%= @user.username %>
-<br/>
-"Tag Line Should Be Here!"
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-
 <% @notes.each do |note| %>
-  <a href="/notes/<%= note.id %>"><%= note.text %></a>
-  <br/>
-  By: <a href="/users/<%= note.user_id %>"><%= note.author %></a>
-  <br/>
-  <br/>
-  <br/>
+  <div class="note">
+    <div class="row">
+      <div class="col-md-1 mobile-hide"></div>
+      <div class="col-md-2 emoticons">
+        <img src="/images/<%= note.top_vote_type %>.png"/>
+      </div>
+      <div class="col-md-8">
+        <p><%= note.text %></p>
+        <div class="by-user">
+          <span>By:</span> <a href="/users/<%= note.id %>"><%= note.author %></a>
+        </div>
+        <div class="write-about-this">
+          <a href="/notes/<%= note.id %>">Write About This</a>
+        </div>
+        <div class="col-md-1 mobile-hide"></div>
+      </div>
+    </div>
+  </div>
 <% end %>

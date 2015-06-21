@@ -11,14 +11,28 @@ class User < ActiveRecord::Base
   def follow_user(user_id_to_follow)
     new_follow = is_followings.new(user_id: user_id_to_follow)
     new_follow.delete unless new_follow.save
+    new_follow
+  end
+
+  def unfollow_user(user_id_to_unfollow)
+    user_follow = is_followings.find_by_user_id(user_id_to_unfollow)
+    user_follow.destroy
   end
 
   def is_followed_by
-    User.find(user_follows.pluck(:is_following_id))
+    User.find(is_followed_by_ids)
+  end
+
+  def is_followed_by_ids
+    user_follows.pluck(:is_following_id)
   end
 
   def is_following
-    User.find(is_followings.pluck(:user_id))
+    User.find(is_following_ids)
+  end
+
+  def is_following_ids
+    is_followings.pluck(:user_id)
   end
   
 end

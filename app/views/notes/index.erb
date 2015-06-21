@@ -9,7 +9,7 @@
       <div class="col-md-8">
         <p><%= note.text %></p>
         <div class="by-user">
-          <span>By:</span> <a href="/users/<%= note.id %>"><%= note.author %></a>
+          <span>By:</span> <a href="/users/<%= note.user_id %>"><%= note.author %></a>
         </div>
         <div class="write-about-this">
           <a href="/notes/<%= note.id %>">Write About This</a>

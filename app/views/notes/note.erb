@@ -6,7 +6,7 @@
       <div class="col-md-8">
         <p><%= @note.text %></p>
         <div class="by-user">
-          <span>By:</span> <a href="/users/<%= @note.id %>"><%= @note.author %></a>
+          <span>By:</span> <a href="/users/<%= @note.user_id %>"><%= @note.author %></a>
         </div>
         <div class="col-md-1 mobile-hide"></div>
       </div>
@@ -64,15 +64,18 @@
         <p>Insert Your Comment Below!</p>
         <form method="POST" action="/notes/<%= @note.id %>/comments">
           <div>
-            <textarea name="text" style="width: 100%; margin: 0; padding: 0; border-width: 0;" rows="12"></textarea>
+            <textarea name="text" style="width: 100%; margin: 0; padding: 0; border-width: 0;" rows="6"></textarea>
           </div>
-
+          
+          
           <div class="row">
             <div class="col-md-6">
-              <input type="radio" class="like" name="vote_kind" value="like" />
-              <input type="radio" class="dislike" name="vote_kind" value="dislike" />
-              <input type="radio" class="omg"  name="vote_kind" value="omg" />
-              <input type="radio" class="wtf"  name="vote_kind" value="wtf" />
+              <% if current_user.id != @note.user_id %>
+                <input type="radio" class="like" name="vote_kind" value="like" />
+                <input type="radio" class="dislike" name="vote_kind" value="dislike" />
+                <input type="radio" class="omg"  name="vote_kind" value="omg" />
+                <input type="radio" class="wtf"  name="vote_kind" value="wtf" />
+              <% end %>
               </div>
             <div class="col-md-6" align="right">
               <input class="submit-comment" type="submit" name="submit" value="Submit">

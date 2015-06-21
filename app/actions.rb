@@ -55,6 +55,17 @@ get '/users/:id' do
   erb :'users/profile'
 end
 
+post '/users/newfollow' do
+  new_follow = current_user.follow_user(params[:user_id_to_follow].to_i)
+  @errors = new_follow.errors
+  redirect "/users/#{params[:user_id_to_follow]}"
+end
+
+post '/users/unfollow' do
+  current_user.unfollow_user(params[:user_id_to_unfollow].to_i)
+  redirect "/users/#{params[:user_id_to_unfollow]}"
+end
+
 
 ## Notes ##
 get '/notes' do
@@ -82,7 +93,8 @@ get '/notes/:id' do
 end
 
 post '/notes/:id/comments' do
-  new_comment = Comment.new(user_id: current_user.id, note_id: params[:id], text: params[:text], vote_kind: params[:vote_kind])
+  new_comment = Comment.new(user_id: current_user.id, note_id: params[:id], text: params[:text])
+  new_comment.vote_kind = params[:vote_kind] if params[:vote_kind]
   if new_comment.save
     redirect "/notes/#{params[:id]}"
   else
@@ -94,8 +106,8 @@ post '/notes/:id/comments' do
 end
 
 ## Search ##
- get '/search'  do
-
+get '/search' do
+  erb :'search/index'
 end
 
 get '/search/results' do

@@ -66,17 +66,16 @@
       </div>
     </header>
 
-     <!-- Header tag line -->
-      <section class="tag-line-container">
-        <div class="container">
-          <div class="spacer-100"></div>
-          <div class="text-align-center" class="col-md-12">
-            <h1>If you can't describe it in words, leave.</h1>
-          </div>
-          <div class="spacer-100"></div>
-        </div>
-      </section>
-    <!-- Header - tag line -->
+    <% if request.path_info.match(/^\/users\/\d+$/) %>
+      <!-- user partial -->
+      <%= erb :"layouts/_users_header" %>
+    <% elsif request.path_info.match(/^\/search$/) %>
+      <!-- search partial -->
+      <%= erb :"layouts/_search_header" %>
+    <% else %>
+      <!-- everything else -->
+      <%= erb :"layouts/_default_header" %>
+    <% end %>
 
     <section class="main">
       <div class="container">

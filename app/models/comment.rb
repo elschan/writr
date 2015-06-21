@@ -3,7 +3,7 @@ class Comment < ActiveRecord::Base
   belongs_to :user
 
   validates :note_id, presence: true
-  validates :text, presence: true
+  validates :text, presence: true, uniqueness: true
 
   validate :cannot_set_comment_type_on_own_note
 
