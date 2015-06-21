@@ -51,6 +51,19 @@ end
 
 
 ## Users ##
+get '/users/new' do
+  erb :'/users/new'
+end 
+
+post '/users' do
+  user = User.new(username: params[:username], password: params[:password], tagline: params[:tagline])
+  if user.save
+    redirect "/notes"
+  else
+    @errors = user.errors
+    erb :'/users/new'
+  end
+end 
 
 get '/users/:id/follows' do
   @user = User.find(params[:id])
