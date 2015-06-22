@@ -34,5 +34,9 @@ class User < ActiveRecord::Base
   def is_following_ids
     is_followings.pluck(:user_id)
   end
+
+  def has_new_followers?
+    user_follows.pluck(:notification_flag).include?(false)
+  end
   
 end
