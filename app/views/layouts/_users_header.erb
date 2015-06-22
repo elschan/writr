@@ -5,14 +5,12 @@
       <h1><%= @user.username %></h1>
       <%if current_user == @user %>
         <h2 class="tag-line" contenteditable= "true" style = "outline:none">
-        <% if @user.tagline != "" %>
-          <%= @user.tagline %>
-        <% else %>
-          <p>"Insert tagline here"</p>
+        <% if @user.tagline == nil %>
+            "Insert tagline here"
+         <% else %>   
+            <%=@user.tagline %>
         <% end %>
         </h2>
-      <%else%>
-        <h2 class="tag-line"><%=@user.tagline %></h2>
       <%end%>
       <table align="center">
         <tr>

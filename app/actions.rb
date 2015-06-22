@@ -52,6 +52,7 @@ end
 post '/save_tag' do
   user = current_user
   user.tagline = params[:new_tag]
+  user.tagline = nil if user.tagline.blank?
   # if you save properly  
   if user.save
     { :success => 'good' }.to_json
