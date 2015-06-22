@@ -5,6 +5,9 @@ helpers do
       User.find(session[:id])
     end
   end
+   
+ #Return the new array
+
 
 end
 
@@ -146,6 +149,7 @@ get '/search'  do
   @notes = Note.all
   @users = User.all
   @no_search_results_error = "No search results. Please try again"
+  @top_searches = []
   if params[:query]
     if params[:query].length == 1 
       @notes.each do |result|
@@ -160,14 +164,15 @@ get '/search'  do
     else
       query_array = params[:query].split(" ")
       query_array.each do |word|
+         # @results_notes = Note.find_by_sql(["SELECT *, count(text) FROM notes WHERE text LIKE ? GROUP BY text ORDER BY count(text)","%#{word.downcase.gsub("'", "''")}%"]) 
         Note.where("lower(text) LIKE ?", "%#{word.downcase.gsub("'", "''")}%").each do |result|
             @results_notes << result
-
         end
         User.where("lower(username) LIKE ?", "%#{word.downcase.gsub("'", "''")}%").each do |result|
             @results_users << result
         end
       end
+
     end
   end
   erb :'search/index'

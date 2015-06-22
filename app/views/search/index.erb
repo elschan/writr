@@ -3,6 +3,9 @@
     <a href="#" class="close" data-dismiss="alert">&times;</a>
     <%= @no_search_results_error %>
   </div>
+<% end %>
+
+<%if @results_users == [] && @results_notes == [] %>
   <%@notes.uniq.each do |note| %>
     <div class="note">
       <div class="row">

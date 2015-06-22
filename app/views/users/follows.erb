@@ -9,7 +9,7 @@
       <% @user.is_followed_by.each do |user| %>
         <li>
           <p>
-            <a href="/users/<%= user.id %>"><%= user.username %></a>
+            <a href="/users/<%= user.id %>"><%= user.username %></a> -   <%=user.tagline %>
             <% if @is_followed_by_new_ids.include?(user.id) %>
               <span><strong class="new-follow">(New!)</strong></span>
             <% end %>
@@ -21,7 +21,7 @@
       <% @user.is_following.each do |user| %>
         <li>
           <p>
-            <a href="/users/<%= user.id %>"><%= user.username %></a>
+            <a href="/users/<%= user.id %>"><%= user.username %></a><%=user.tagline %>
           <p>
         </li>
       <% end %>

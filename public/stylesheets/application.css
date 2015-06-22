@@ -365,6 +365,11 @@ ul.followers-list li p a:hover, ul.followings-list li p a:hover{
   text-decoration: none;
 }
 
+ul.followers-list li p, ul.followings-list li p{
+  text-decoration: none;
+  color:gray;
+  margin-left: 5px; }
+
 textarea, input { outline: none !important; }
 textarea{
   font-size: 25px;
