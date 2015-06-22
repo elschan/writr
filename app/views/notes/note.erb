@@ -35,7 +35,7 @@
           <div class="col-md-8">
             <p><%= comment.text %></p>
             <div class="by-user">
-              <span>By:</span> <a href="/users/<%= comment.id %>"><%= comment.author %></a>
+              <span>By:</span> <a href="/users/<%= comment.user.id%>"><%= comment.author %></a>
             </div>
             <div class="col-md-1 mobile-hide"></div>
           </div>
