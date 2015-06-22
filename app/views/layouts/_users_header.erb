@@ -9,9 +9,11 @@
             "Insert tagline here"
          <% else %>   
             <%=@user.tagline %>
-        <% end %>
-        </h2>
+          <%end%>
+      <%else%>
+          <h2 class="tag-line"><%=@user.tagline%></h2>
       <%end%>
+        </h2>
       <table align="center">
         <tr>
           <td>
