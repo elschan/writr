@@ -53,7 +53,6 @@ post '/save_tag' do
   user = current_user
   user.tagline = params[:new_tag]
   user.tagline = nil if user.tagline.blank?
-  # if you save properly  
   if user.save
     { :success => 'good' }.to_json
   else
@@ -65,8 +64,6 @@ post '/save_tag' do
 end
 
 post '/users' do
-# if ...
-#   user.tagling = params[tagline:]
   user = User.new(username: params[:username], password: params[:password], tagline: params[:tagline])
   if user.save
     session[:id] = user.id
