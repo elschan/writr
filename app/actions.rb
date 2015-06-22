@@ -54,9 +54,7 @@ post '/save_tag' do
   user.tagline = params[:new_tag]
   # if you save properly  
   if user.save
-    # send back success json
     { :success => 'good' }.to_json
-  #otherwise if there is an error  
   else
     @error_message_tagline = current_user.errors
     @error_message_tagline.to_json
