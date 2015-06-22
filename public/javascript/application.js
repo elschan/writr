@@ -30,4 +30,23 @@ $('.following_tab').on('click',function() {
      $(".followers-list").hide(0);
 });
 
+
+var tag_line = $('.tag-line');
+tag_line.on('blur', function(){
+new_tag_line = tag_line.html()
+  $.ajax(
+    {
+      url: "/save_tag",
+      type: "post",
+      data: {new_tag: new_tag_line},
+      success: function(result){
+        console.log (result);          
+      },
+      error: function(result){
+        console.log (result);
+      },
+    }
+  );
+})
+
 });

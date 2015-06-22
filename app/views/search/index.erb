@@ -1,5 +1,5 @@
 <%if @results_users == [] && @results_notes == [] %>
-  <%@notes.each do |note| %>
+  <%@notes.uniq.each do |note| %>
     <div class="note">
       <div class="row">
         <div class="col-md-1 mobile-hide"></div>
@@ -22,7 +22,7 @@
 <%end%>   
 
 <%if @results_users%>
-  <%@results_users.each do |result| %>
+  <%@results_users.uniq.each do |result| %>
     <div class="note">
       <div class="row">
         <div class="col-md-1 mobile-hide"></div>
@@ -37,7 +37,29 @@
 
 <% unless params[:users_only] == '1' %>
   <%if @results_notes%>
-    <%@results_notes.each do |note| %>
+    <%@results_notes.uniq.each do |note| %>
+      <div class="note">
+        <div class="row">
+          <div class="col-md-1 mobile-hide"></div>
+          <div class="col-md-2 emoticons">
+            <img src="images/<%= note.top_vote_type %>.png"/>
+          </div>
+          <div class="col-md-8">
+            <p><%= note.text %></p>
+            <div class="by-user">
+              <span>By:</span> <a href="/users/<%= note.user_id %>"><%= note.author %></a>
+            </div>
+            <div class="write-about-this">
+              <a href="/notes/<%= note.id %>">Write About This</a>
+            </div>
+            <div class="col-md-1 mobile-hide"></div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <%end%>
+  <%if @results_notes_based_on_users != [] %>
+    <%@results_notes_based_on_users.uniq.each do |note| %>
       <div class="note">
         <div class="row">
           <div class="col-md-1 mobile-hide"></div>

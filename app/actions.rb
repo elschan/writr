@@ -49,7 +49,25 @@ get '/users/new' do
   erb :'/users/new'
 end 
 
+post '/save_tag' do
+  user = current_user
+  user.tagline = params[:new_tag]
+  # if you save properly  
+  if user.save
+    # send back success json
+    { :success => 'good' }.to_json
+  #otherwise if there is an error  
+  else
+    @error_message_tagline = current_user.errors
+    @error_message_tagline.to_json
+  end
+  
+
+end
+
 post '/users' do
+# if ...
+#   user.tagling = params[tagline:]
   user = User.new(username: params[:username], password: params[:password], tagline: params[:tagline])
   if user.save
     session[:id] = user.id
@@ -122,16 +140,31 @@ end
 get '/search'  do
   @results_notes = []
   @results_users = []
+  @results_notes_based_on_users = []
   @notes = Note.all
+  @users = User.all
   if params[:query]
-    query_array = params[:query].split(" ")
-    query_array.each do |word|
-      Note.where("text LIKE ?", "%#{word.gsub("'", "''")}%").each do |result|
-          @results_notes << result
+    if params[:query].length == 1 
+      @notes.each do |result|
+      @results_notes << result if result.text[0].downcase == params[:query].downcase  
         end
-      User.where("username LIKE ?", "%#{word.gsub("'", "''")}%").each do |result|
-          @results_users << result
+      @users.each do |result|
+      @results_users << result if result.username[0].downcase == params[:query].downcase
         end
+      @notes.each do |result|
+      @results_notes_based_on_users << result if result.author[0].downcase == params[:query].downcase   
+        end
+    else
+      query_array = params[:query].split(" ")
+      query_array.each do |word|
+        Note.where("lower(text) LIKE ?", "%#{word.downcase.gsub("'", "''")}%").each do |result|
+            @results_notes << result
+
+        end
+        User.where("lower(username) LIKE ?", "%#{word.downcase.gsub("'", "''")}%").each do |result|
+            @results_users << result
+        end
+      end
     end
   end
   erb :'search/index'
