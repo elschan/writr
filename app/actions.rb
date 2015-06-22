@@ -145,6 +145,7 @@ get '/search'  do
   @results_notes_based_on_users = []
   @notes = Note.all
   @users = User.all
+  @no_search_results_error = "No search results. Please try again"
   if params[:query]
     if params[:query].length == 1 
       @notes.each do |result|
