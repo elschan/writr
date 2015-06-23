@@ -21,7 +21,7 @@
       <% @user.is_following.each do |user| %>
         <li>
           <p>
-            <a href="/users/<%= user.id %>"><%= user.username %></a><%=user.tagline %>
+            <a href="/users/<%= user.id %>"><%= user.username %></a> -   <%=user.tagline %>
           <p>
         </li>
       <% end %>
