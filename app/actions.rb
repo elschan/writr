@@ -13,7 +13,8 @@ end
 
 ## Home and Session Login ##
 get '/' do
-  redirect '/notes'
+  @notes = Note.order(created_at: :desc)
+  erb :'notes/index'
 end
 
 get '/session/new' do
